@@ -1,9 +1,9 @@
 import streamlit as st
 import torch
 from transformers import pipeline
-from langchain.llms import HuggingFacePipeline
-from langchain.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.llms import HuggingFacePipeline
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.chains import RetrievalQA
 
 # Detectar GPU
