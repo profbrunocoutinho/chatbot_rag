@@ -19,9 +19,10 @@ qa_pipeline = pipeline(
 llm = HuggingFacePipeline(pipeline=qa_pipeline)
 
 # Carregar base FAISS
-embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 db = FAISS.load_local("faiss_index", embedding_model, allow_dangerous_deserialization=True)
-retriever = db.as_retriever(search_kwargs={"k": 2})
+
+retriever = db.as_retriever(search_kwargs={"k": 3})
 
 # Criar cadeia RAG
 qa_chain = RetrievalQA.from_chain_type(

@@ -1,7 +1,5 @@
-# Rode esse script apenas 1 vez sempre que mudar os PDFs.
-
 import os
-from langchain_community.document_loaders import PyMuPDFLoader
+from langchain.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -10,25 +8,24 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 pasta_pdfs = "documentos"
 
 # Carregar todos os PDFs
-all_docs = []
+documentos = []
 for nome_arquivo in os.listdir(pasta_pdfs):
     if nome_arquivo.lower().endswith(".pdf"):
         caminho = os.path.join(pasta_pdfs, nome_arquivo)
         loader = PyMuPDFLoader(caminho)
         docs = loader.load()
-        all_docs.extend(docs)
+        documentos.extend(docs)
 
-# Quebrar em pedaços
-splitter = RecursiveCharacterTextSplitter(chunk_size=150, chunk_overlap=30)
-split_docs = splitter.split_documents(all_docs)
+# Quebrar em pedaços menores para melhor recuperação
+splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=30)
+split_docs = splitter.split_documents(documentos)
 
-# Criar embeddings
-embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+# Criar embeddings com modelo multilíngue compatível com pt-br
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 
-# Criar base FAISS
+# Criar e salvar base vetorial FAISS
 db = FAISS.from_documents(split_docs, embedding_model)
-
-# Salvar
 os.makedirs("faiss_index", exist_ok=True)
 db.save_local("faiss_index")
-print("Base FAISS salva com sucesso.")
+
+print("✅ Base FAISS com modelo multilíngue (pt-br) salva com sucesso.")
