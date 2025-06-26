@@ -1,6 +1,6 @@
-# 🦥 Chatbot RAG com LLaMA (Execução Local)
+# Chatbot RAG com LLaMA (Execução Local)
 
-Este projeto é um chatbot orquestrador do tipo **RAG (Retrieval-Augmented Generation)** utilizando o modelo **LLaMA ou Mistral quantizado (.gguf)** para execução local com `llama-cpp-python`.
+Este projeto é um chatbot do tipo **RAG (Retrieval-Augmented Generation)** utilizando o modelo **LLaMA ou Mistral quantizado (.gguf)** para execução local com `llama-cpp-python`.
 
 O chatbot permite consultas semânticas a documentos PDF indexados via FAISS, com interface web desenvolvida em **Streamlit**.
 
@@ -132,5 +132,5 @@ O uso de modelos LLaMA da Meta requer aceitação da licença de uso não comerc
 
 ## ✉️ Contato
 
-Desenvolvido por Bruno – Projeto educacional para uso no contexto do Ifes.
+Desenvolvido por Bruno Coutinho – Projeto educacional para uso no contexto do Ifes.
 
